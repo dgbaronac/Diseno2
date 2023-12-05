@@ -16,9 +16,9 @@ def main():
     maskBlue = cv2.inRange(hsv_frame, (100, 100, 100), (130, 255, 255))
 
     # Encuentra los contornos en las máscaras
-    (_1, _2,contornosRed, hierarchyRed) = cv2.findContours(maskRed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    (_1,_2,contornosGreen, hierarchyGreen) = cv2.findContours(maskGreen, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    (_1,_2,contornosBlue, hierarchyBlue) = cv2.findContours(maskBlue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosRed, hierarchyRed, _, _) = cv2.findContours(maskRed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosGreen, hierarchyGreen, _, _) = cv2.findContours(maskGreen, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosBlue, hierarchyBlue, _, _) = cv2.findContours(maskBlue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Dibuja los contornos en la imagen
     for contorno in contornosRed:
