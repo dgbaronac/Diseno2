@@ -16,23 +16,29 @@ def main():
     maskBlue = cv2.inRange(hsv_frame, (100, 100, 100), (130, 255, 255))
 
     # Encuentra los contornos en las máscaras
-    (contornosRed, hierarchyRed, _, _) = cv2.findContours(maskRed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    (contornosGreen, hierarchyGreen, _, _) = cv2.findContours(maskGreen, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    (contornosBlue, hierarchyBlue, _, _) = cv2.findContours(maskBlue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosRed, hierarchyRed) = cv2.findContours(maskRed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosGreen, hierarchyGreen) = cv2.findContours(maskGreen, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (contornosBlue, hierarchyBlue) = cv2.findContours(maskBlue, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # Dibuja los contornos en la imagen
     for contorno in contornosRed:
-        cv2.drawContours(frame, contorno, -1, (0, 0, 255), 2)
+        cv2.drawContours(frame, [contorno], -1, (0, 0, 255), 2)
     for contorno in contornosGreen:
-        cv2.drawContours(frame, contorno, -1, (0, 255, 0), 2)
+        cv2.drawContours(frame, [contorno], -1, (0, 255, 0), 2)
     for contorno in contornosBlue:
-        cv2.drawContours(frame, contorno, -1, (255, 0, 0), 2)
+        cv2.drawContours(frame, [contorno], -1, (255, 0, 0), 2)
 
     # Muestra la imagen en la pantalla
     cv2.imshow("Cámara", frame)
 
-    # Espera a que el usuario presione una tecla
-    cv2.waitKey(0)
+    # Espera a que el usuario presione una tecla (1 milisegundo)
+    cv2.waitKey(1)
+
+    # Libera la cámara
+    camera.release()
+
+    # Cierra la ventana al presionar 'Esc'
+    cv2.destroyAllWindows()
 
 if __name__ == "__main__":
     main()
